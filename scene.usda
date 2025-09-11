@@ -1,0 +1,450 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (5, 0, 0)
+                double radius = 5
+            }
+            dictionary Perspective = {
+                double3 position = (0.062298542089580196, -11.396965118957473, 3.446134812572732)
+                double3 target = (-0.6981250135375574, 5.037382842447956, -2.419997138614572)
+            }
+            dictionary Right = {
+                double3 position = (0, -5, 0)
+                double radius = 5
+            }
+            dictionary Top = {
+                double3 position = (0, 0, 5)
+                double radius = 5
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        dictionary metricsAssembler = {
+            dictionary "/World/Big_Rock_01" = {
+            }
+            dictionary "/World/Big_Rock_02" = {
+            }
+            dictionary "/World/Big_Rock_03" = {
+            }
+            dictionary "/World/Locomotion_Terrain" = {
+            }
+            dictionary "/World/Locomotion_Terrain_01" = {
+            }
+            dictionary "/World/Middle_Rock_01" = {
+            }
+            dictionary "/World/Middle_Rock_02" = {
+            }
+            dictionary "/World/Middle_Rock_03" = {
+            }
+            dictionary "/World/Small_Rock_01" = {
+            }
+            dictionary "/World/Small_Rock_02" = {
+            }
+            dictionary "/World/Small_Rock_03" = {
+            }
+            dictionary "/World/Small_Rock_04" = {
+            }
+            dictionary "/World/Small_Rock_05" = {
+            }
+            dictionary "/World/Small_Rock_06" = {
+            }
+            dictionary "/World/Xform" = {
+            }
+            dictionary "/World/particle_test" = {
+            }
+            dictionary "/World/trunk_01" = {
+            }
+            dictionary "/World/trunk_02" = {
+            }
+            int version = 1
+        }
+        dictionary omni_layer = {
+            string authoring_layer = "./scene.usd"
+            dictionary locked = {
+            }
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 1000000
+    metersPerUnit = 1
+    startTimeCode = 0
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)
+
+def Xform "World"
+{
+    def "Big_Rock_01" (
+        delete references = @./Assets/Big_Rock_01.usd@
+        prepend references = @./Assets/Big_Rock_01.usda@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-3.607356118593807, 3.642332836344747, -1.371941312967921)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "mesh"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "Big_Rock_02" (
+        delete references = @./Assets/Big_Rock_02.usd@
+        prepend references = @./Assets/Big_Rock_02.usda@
+    )
+    {
+        quatf xformOp:orient = (0.7863703, -0.2032134, -0.33420038, -0.4781592)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (3.8681487045177794, -1.3166928972171763, -1.657168274890978)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "mesh"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "Big_Rock_03" (
+        delete references = @./Assets/Big_Rock_03.usd@
+        prepend references = @./Assets/Big_Rock_03.usda@
+    )
+    {
+        quatf xformOp:orient = (0.8233354, -0.31089962, -0.4693165, -0.07212657)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-2.606441252318505, -5.593902452709852, -0.5646261446254439)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "mesh"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "Middle_Rock_01" (
+        delete references = [
+            @./Assets/Middle_Rock_01.usd@,
+            @./Assets/Middle_Rocks/Middle_Rock_01.usd@
+        ]
+        prepend references = @./Assets/Middle_Rock_01.usda@
+    )
+    {
+        quatf xformOp:orient = (0.49858052, -0.30070776, 0.41989243, -0.69619155)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.30831296730750574, 3.7061726794034358, -0.6239978026832935)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "mesh"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (-1.3984206237438457e-8, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "Middle_Rock_02" (
+        delete references = [
+            @./Assets/Middle_Rock_02.usd@,
+            @./Assets/Middle_Rocks/Middle_Rock_02.usd@
+        ]
+        prepend references = @./Assets/Middle_Rock_02.usda@
+    )
+    {
+        token visibility = "inherited"
+        quatf xformOp:orient = (0.7598929, 0.58335745, -0.17464656, -0.22749825)
+        double xformOp:rotateX:unitsResolve = 0
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (4.587692189129204, -4.421343102500551, -0.3973064154369598)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "mesh"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "Middle_Rock_03" (
+        delete references = [
+            @./Assets/Middle_Rock_03.usd@,
+            @./Assets/Middle_Rocks/Middle_Rock_03.usd@
+        ]
+        prepend references = @./Assets/Middle_Rock_03.usda@
+    )
+    {
+        quatf xformOp:orient = (0.8782832, 0, 0, -0.4781408)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (3.7547177877246334, 5.017095343209454, -0.5133326233659998)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "mesh"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "Small_Rock_01" (
+        delete references = [
+            @./Assets/Small_Rock_01.usd@,
+            @./Assets/Small_Rocks/Small_Rock_01.usd@
+        ]
+        prepend references = @./Assets/Small_Rock_01.usda@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (1.3688463409058522, -3.3469190173863392, -0.5873210225659341)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+    }
+
+    def "Small_Rock_02" (
+        delete references = [
+            @./Assets/Small_Rock_02.usd@,
+            @./Assets/Small_Rocks/Small_Rock_02.usd@
+        ]
+        prepend references = @./Assets/Small_Rock_02.usda@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (1.7854669844237199, 4.7916869180681, -0.3691469962833672)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "mesh"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "Small_Rock_03" (
+        delete references = [
+            @./Assets/Small_Rock_03.usd@,
+            @./Assets/Small_Rocks/Small_Rock_03.usd@
+        ]
+        prepend references = @./Assets/Small_Rock_03.usda@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0.7553785559074133, -1.8634700749057664, -0.9237098670322761)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "mesh"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "Small_Rock_04" (
+        delete references = [
+            @./Assets/Small_Rock_04.usd@,
+            @./Assets/Small_Rocks/Small_Rock_04.usd@
+        ]
+        prepend references = @./Assets/Small_Rock_04.usda@
+    )
+    {
+        quatf xformOp:orient = (0.77281684, 0, 0, 0.63462913)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-0.9177923741095977, 2.048719409257395, -1.0830769169389773)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "mesh"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "Small_Rock_05" (
+        delete references = [
+            @./Assets/Small_Rock_05.usd@,
+            @./Assets/Small_Rocks/Small_Rock_05.usd@
+        ]
+        prepend references = @./Assets/Small_Rock_05.usda@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (2.244772439490489, -4.559028244705333, -0.3123777322963286)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "mesh"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def "Small_Rock_06" (
+        delete references = [
+            @./Assets/Small_Rock_06.usd@,
+            @./Assets/Small_Rocks/Small_Rock_06.usd@
+        ]
+        prepend references = @./Assets/Small_Rock_06.usda@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (5.493676210042934, 2.591838668595623, -0.22092271986076828)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+    }
+
+    def "trunk_02" (
+        delete references = @./Assets/trunk_02.usd@
+        prepend references = @./Assets/trunk_02.usda@
+    )
+    {
+        quatf xformOp:orient = (0.99449885, 0, 0.104747504, 0)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-2.1352166095691496, -0.5200340136050404, -0.7564093408518634)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "mesh"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (8.79296635503124e-14, 0, 3.3306690738754696e-14)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+    }
+
+    def Scope "Looks"
+    {
+        def Material "OmniPBR"
+        {
+            token outputs:mdl:displacement.connect = </World/Looks/OmniPBR/Shader.outputs:out>
+            token outputs:mdl:surface.connect = </World/Looks/OmniPBR/Shader.outputs:out>
+            token outputs:mdl:volume.connect = </World/Looks/OmniPBR/Shader.outputs:out>
+
+            def Shader "Shader"
+            {
+                uniform token info:implementationSource = "sourceAsset"
+                uniform asset info:mdl:sourceAsset = @OmniPBR.mdl@
+                uniform token info:mdl:sourceAsset:subIdentifier = "OmniPBR"
+                color3f inputs:diffuse_color_constant = (0.00772202, 0.007721943, 0.007721943)
+                token outputs:out (
+                    renderType = "material"
+                )
+            }
+        }
+    }
+
+    def "particle_test" (
+        delete references = [
+            @./test/particles/particle_test.usd@,
+            @./Assets/particle_test.usd@
+        ]
+        prepend references = @./Assets/particle_test.usda@
+    )
+    {
+        token visibility = "inherited"
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, -2.77333911991762e-32, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+
+        over "sand"
+        {
+            float primvars:uniform_scale = 1.8727169
+        }
+    }
+
+    def "Locomotion_Terrain" (
+        delete references = @./Assets/Locomotion_Terrain.usd@
+        prepend references = @./Assets/Locomotion_Terrain.usda@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+    }
+}
+
+def Xform "Environment"
+{
+    quatd xformOp:orient = (1, 0, 0, 0)
+    double3 xformOp:scale = (1, 1, 1)
+    double3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def DistantLight "defaultLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:angle = 1
+        float inputs:intensity = 3000
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        quatd xformOp:orient = (0.5572077475232347, 0.4353384041180874, 0.4353384041180874, 0.5572077475232348)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def DomeLight "DomeLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:intensity = 1000
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        token inputs:texture:format = "latlong"
+        quatd xformOp:orient = (1, 0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+}
+
