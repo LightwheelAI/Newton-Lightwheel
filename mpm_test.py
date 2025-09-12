@@ -373,9 +373,9 @@ class Example:
 
         # set model on viewer and setup capture
         self.viewer.set_model(self.model)
-        self.viewer.camera.pos = wp.vec3(0.06, -3.55, 3.07)
-        self.viewer.camera.pitch = -31.1
-        self.viewer.camera.yaw = -268.7
+        self.viewer.camera.pos = wp.vec3(0.06, -5.57, 4.21)
+        self.viewer.camera.pitch = -29.5
+        self.viewer.camera.yaw = -266.8
         self.viewer.show_particles = True
         self.capture()
 
