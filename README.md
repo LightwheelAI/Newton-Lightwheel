@@ -42,6 +42,42 @@ A Python file is also provided for loading the scene. It can be run in the corre
    - Use the `.hip` files to adjust terrain, particle counts, or Newton-related attributes.  
    - Export the modified assets (USD/USDA) back into the **Assets** folder for reuse.  
 
+### `_newton__` Static Collision Fields
+
+| Name | Type | Mapping to Newton |
+|------|------|-------------|
+| `NewtonCollisionAPI` | bool | Toggle collision on or off |
+| `_newton__contact_ka` | float | ShapeConfig.ka |
+| `_newton__contact_ke` | float | ShapeConfig.ke |
+| `_newton__contact_kd` | float | ShapeConfig.kd |
+| `_newton__contact_kf` | float | ShapeConfig.kf |
+| `_newton__contact_thickness` | float | ShapeConfig.thickness |
+| `_newton__material_staticFriction` | float | ShapeConfig.mu |
+| `_newton__material_dynamicFriction` | float | ShapeConfig.mu |
+| `_newton__material_restitution` | float | ShapeConfig.restitution |
+| `_newton__material_density` | float | ShapeConfig.density |
+| `_newton__collision_group` | int | ShapeConfig.collision_group |
+| `_newton__collision_isVisible` | bool | ShapeConfig.is_visible |
+| `_newton__collision_approximation` | bool | Toggle Mesh approximation on or off |
+| `_newton__collision_approximationMethod` | string | Mesh approximation method name (e.g., “coacd”) |
+
+### `_newton__` Particle Attribute Fields
+
+| Name | Type | Mapping to Newton |
+|------|------|-------------|
+| `_newton__particle_qd` | vec3 | Model.particle_qd |
+| `_newton__particle_mass` | float | Model.particle_mass |
+| `_newton__particle_radius` | float | Model.particle_radius |
+| `_newton__particle_flags` | float | Model.particle_flags |
+| `_newton__particle_material_friction` | float | Model.particle_mu|
+| `_newton__particle_material_youngModulus` | float | ImplicitMPMOptions.young_modulus|
+| `_newton__particle_material_damping` | float | ImplicitMPMOptions.damping|
+| `_newton__particle_material_poissonRatio` | float | ImplicitMPMOptions.poisson_ratio|
+| `_newton__particle_material_hardening` | float | ImplicitMPMOptions.hardening|
+| `_newton__particle_material_yieldPressure` | float | ImplicitMPMOptions.yield_pressure|
+| `_newton__particle_material_yieldStress` | float | ImplicitMPMOptions.yield_stress|
+| `_newton__particle_material_tensileYieldRatio` | float | ImplicitMPMOptions.tensile_yield_ratio |
+
 ### Future Work
 - **Lighting and Materials**: Explore more realistic lighting models and textures. For presentation purposes, consider offline rendering as well.  
 - **Performance Optimization**: Improve real-time performance. With reduced particle counts and higher-end hardware, the goal is to reach ~20 FPS.  
