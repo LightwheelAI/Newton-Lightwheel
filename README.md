@@ -13,6 +13,10 @@ The USD files stored in this repository contain around **1.5M particles**. Both 
 ### Assets
 All assets (textures, USDA files) are located in the **Assets** folder. For now, only a preliminary organization has been done.  
 
+### Newton
+The Newton version currently in use:  
+[https://github.com/gdaviet/newton/tree/feat/mpm_multi_mat](https://github.com/gdaviet/newton/tree/feat/mpm_multi_mat)
+
 ### Houdini
 Houdini files are placed in the root directory of this repository:  
 - The **hda** folder contains the required Houdini Digital Assets.  
@@ -33,7 +37,6 @@ A Python file is also provided for loading the scene. It can be run in the corre
      ```bash
      uv run mpm_test.py
      ```  
-
 3. **Edit with Houdini**  
    - Use the `.hip` files to adjust terrain, particle counts, or Newton-related attributes.  
    - Export the modified assets (USD/USDA) back into the **Assets** folder for reuse.  
