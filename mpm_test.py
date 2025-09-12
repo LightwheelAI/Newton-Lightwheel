@@ -14,13 +14,6 @@
 # limitations under the License.
 
 ###########################################################################
-# Example MPM Anymal
-#
-# Shows Anymal C with a pretrained policy coupled with implicit MPM sand.
-#
-# Example usage (via unified runner):
-#   python -m newton.examples mpm_anymal --viewer gl
-###########################################################################
 
 import sys
 
@@ -167,26 +160,8 @@ class Example:
         for i in range(len(builder.joint_target_ke)):
             builder.joint_target_ke[i] = 150
             builder.joint_target_kd[i] = 5
-        
-        # add sand particles
-        # density = 2500.0
-        # particle_lo = np.array([-0.5, -0.5, 0.0])  # emission lower bound
-        # particle_hi = np.array([0.5, 2.5, 0.15])  # emission upper bound
-        # particle_res = np.array(
-        #     np.ceil(particles_per_cell * (particle_hi - particle_lo) / voxel_size),
-        #     dtype=int,
-        # )
-        # _spawn_particles(builder, particle_res, particle_lo, particle_hi, density)
 
-        
-
-        # add sand particles
-        # from import_usd_costume import parse_usd_scene, parse_usd_particles
-        # from pxr import Usd
-        # stage = Usd.Stage.Open("/home/yuting/Desktop/Newton/mpmTest/bunny.usd")
-        # stage = Usd.Stage.Open("/home/yuting/Desktop/Newton/mpmTest/scene.usd")
-        stage = Usd.Stage.Open(str((Path("C:/Users/legen/Desktop/CoRL-Newton-demo") / "scene.usd").resolve()))
-        # stage = Usd.Stage.Open(str((Path("C:/Users/legen/Downloads/corl-newton-main") / "scene.usd").resolve()))
+        stage = Usd.Stage.Open(str((Path(__file__).parent /"scene.usda").resolve()))
 
 
         
@@ -236,10 +211,7 @@ class Example:
         colors = np.concatenate([sand_color, mud_color, snow_color], axis = 0)
         # parse scene 
         scene = parse_usd_scene(builder, stage, global_scale=global_scale, global_translate=world_offset, use_static_collider=True, skip_mesh_approximation=False)
-        # breakpoint() 
-        # breakpoint()
 
-        # #---
         # finalize model
         self.model = builder.finalize()
         self.model.particle_mu = sand_friction
@@ -262,14 +234,6 @@ class Example:
 
         # mpm model
         mpm_model = SolverImplicitMPM.Model(self.model, mpm_options)
-        # mpm_model.particle_density = wp.full(mud_particles["pt_count"], 2500, dtype=float)
-        # mpm_model.particle_density[:mud].fill_(500.0)
-        # array(shape=(1530136,), dtype=float32)
-        # mpm_model.material_parameters.yield_pressure = wp.full(1530136 ,2.0e4 ,dtype=float)
-        # mpm_model.material_parameters.yield_stress = wp.full(1530136 ,2.0e4 ,dtype=float)
-        # mpm_model.material_parameters.tensile_yield_ratio = wp.full(1530136 ,2.0e4 ,dtype=float)
-        # mpm_model.material_parameters.friction = wp.full(1530136 ,2.0e4 ,dtype=float)
-        # mpm_model.material_parameters.hardening =wp.full(1530136 ,2.0e4 ,dtype=float)
 
         mpm_model.material_parameters.yield_pressure = wp.array(yp, dtype=float)
         mpm_model.material_parameters.yield_stress = wp.array(ys, dtype=float)
@@ -281,14 +245,6 @@ class Example:
         mpm_model.notify_particle_material_changed()
 
         self.model.particle_colors = wp.array(colors, dtype=wp.vec3)
-        # self.model.particle_colors = wp.full(
-        #     shape=self.model.particle_count, value=wp.vec3(0.75, 0.75, 0.8), device=self.device
-        # )
-        # self.model.particle_colors[snow_particles].fill_(wp.vec3(0.75, 0.75, 0.8))
-        # self.model.particle_colors[mud_particles].fill_(wp.vec3(0.4, 0.25, 0.25))
-        #---
-        # setup mpm solver
-        # breakpoint()
 
         # Select and merge meshes for robot/sand collisions
         collider_body_idx = [idx for idx, key in enumerate(builder.body_key) if "SHANK" in key]
@@ -330,12 +286,6 @@ class Example:
         self.robot_collider_rest_points = rob_collider_points
         self.robot_collider_shape_ids = wp.array(rob_collider_v_shape_ids, dtype=int)
 
-        # for i in robot_collider_rest_points :
-
-        #     self.collider_rest_points.append(i)
-        # for i in scene :
-        #     print(i)
-
         collider_array = []
         collider_friction_array = []
         collider_adhesion_array = []
@@ -355,38 +305,33 @@ class Example:
 
         mpm_model.setup_collider(colliders=collider_array, collider_friction=collider_friction_array, collider_adhesion=collider_adhesion_array)
         
-        def __output_collider_mesh_to_json(mesh: wp.Mesh, file_path: str) :
-            import json
-            pts = mesh._points
-            idx = mesh.indices
+        # def __output_collider_mesh_to_json(mesh: wp.Mesh, file_path: str) :
+        #     import json
+        #     pts = mesh._points
+        #     idx = mesh.indices
 
-            pts = pts.list()
-            idx = idx.list()
+        #     pts = pts.list()
+        #     idx = idx.list()
 
-            data = {}
-            data["vertices"] = []
-            data["indices"] = []
-            for i in pts :
-                data["vertices"].append(i[0])
-                data["vertices"].append(i[1])
-                data["vertices"].append(i[2])
-            for i in idx :
-                data["indices"].append(int(i))
+        #     data = {}
+        #     data["vertices"] = []
+        #     data["indices"] = []
+        #     for i in pts :
+        #         data["vertices"].append(i[0])
+        #         data["vertices"].append(i[1])
+        #         data["vertices"].append(i[2])
+        #     for i in idx :
+        #         data["indices"].append(int(i))
 
-            with open(file_path, "w", encoding = "utf-8") as f :
-                json.dump(data, f, indent=4, ensure_ascii=False)
+        #     with open(file_path, "w", encoding = "utf-8") as f :
+        #         json.dump(data, f, indent=4, ensure_ascii=False)
 
-        __output_collider_mesh_to_json(self.robot_collider_mesh, "C:/Users/legen/geo/collider_mesh.json")
-
-        # breakpoint()
+        # __output_collider_mesh_to_json(self.robot_collider_mesh, "C:/Users/legen/geo/collider_mesh.json")
 
 
         self.solver = newton.solvers.SolverMuJoCo(self.model)
         self.mpm_solver = SolverImplicitMPM(mpm_model, mpm_options)
         
-
-
-        # self.mpm_solver.setup_collider(self.model, [self.collider_mesh])
 
         # simulation state
         self.state_0 = self.model.state()
@@ -577,60 +522,6 @@ def _merge_meshes(
         wp.array(merged_indices, dtype=int),
         wp.array(np.array(shape_ids)[mesh_id], dtype=int),
     )
-
-# def import_mpm_particle_from_usd(
-#     stage: Usd.Stage,
-#     particle_key: str,
-#     builder: newton.ModelBuilder,
-#     mpm_model: SolverImplicitMPM.Model,
-#     global_scale: float = 1.0,
-#     global_translate: wp.vec3 = wp.vec3(0.0, 0.0, 0.0),
-# ) :
-#     def parse_newton_properties(prim):
-#         property_name = ["_newton__particle_flags", 
-#                          "_newton__particle_mass", 
-#                          "_newton__particle_qd",
-#                          "_newton__particle_radius"]
-        
-#         parsed_properties = {}
-        
-#         for property in property_name:
-#             if has_attribute(prim, property):
-#                 property_name = property[property.find('__') + 2:]
-#                 property_value = parse_generic(prim, property)
-#                 parsed_properties[property_name] = property_value
-#         return parsed_properties
-#     particles = {}
-#     for prim in stage.Traverse():
-#         prim_name = prim.GetName()
-#         if prim.IsA(UsdGeom.Points) and particle_key in prim_name.lower():
-#             # if verbose:
-#             #     print("parsing {}...".format(prim_name))
-#             points_prim = UsdGeom.Points(prim)
-#             points = np.array(points_prim.GetPointsAttr().Get(), dtype = float)
-#             world_mat = parse_world_matrix(prim)
-#             xform = parse_xform(prim.GetParent())
-#             world_points = transform_points(world_mat, points, global_scale, global_translate)
-#             particles["prim_name"] = prim_name
-#             particles["world_mat"] = world_mat
-#             particles["xform"] = xform
-#             particles["points"] = world_points
-#             particles["pointsCount"] = len(particles["points"])
-            
-#             newton_properties = parse_newton_properties(prim)
-#             particles["flags"] = newton_properties["particle_flags"]
-#             particles["mass"] = newton_properties["particle_mass"]
-#             particles["qd"] = newton_properties["particle_qd"]
-#             particles["radius"] = newton_properties["particle_radius"]
-
-#             builder.add_particles(
-#                 pos=world_points,
-#                 vel=particles["qd"],
-#                 mass=particles["mass"],
-#                 radius=particles["radius"],
-#                 flags=particles["flags"]
-#             )
-            
 
 if __name__ == "__main__":
     import argparse
