@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (0.062298542089580196, -11.396965118957473, 3.446134812572732)
-                double3 target = (-0.6981250135375574, 5.037382842447956, -2.419997138614572)
+                double3 position = (0.3335423644643393, -13.487524181753134, 7.562115546103654)
+                double3 target = (0.1277575150175187, -0.7950995339006468, -0.5683265404757014)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -60,13 +60,18 @@
             int version = 1
         }
         dictionary omni_layer = {
-            string authoring_layer = "./scene.usd"
+            string authoring_layer = "./scene.usda"
             dictionary locked = {
             }
             dictionary muteness = {
             }
         }
         dictionary renderSettings = {
+            int "rtx:directLighting:sampledLighting:samplesPerPixel" = 4
+            int "rtx:indirectDiffuse:fetchSampleCount" = 2
+            int "rtx:indirectDiffuse:maxBounces" = 3
+            int "rtx:post:dlss:execMode" = 2
+            int "rtx:reflections:sampledLighting:samplesPerPixel" = 4
         }
     }
     defaultPrim = "World"
@@ -434,13 +439,16 @@ def Xform "Environment"
         prepend apiSchemas = ["ShapingAPI"]
     )
     {
-        float inputs:intensity = 1000
+        bool disableFogInteraction = 0
+        float inputs:intensity = 800
         float inputs:shaping:cone:angle = 180
         float inputs:shaping:cone:softness
         float inputs:shaping:focus
         color3f inputs:shaping:focusTint
         asset inputs:shaping:ies:file
+        asset inputs:texture:file = @./Assets/textures/hdr_01.hdr@
         token inputs:texture:format = "latlong"
+        bool visibleInPrimaryRay = 0
         quatd xformOp:orient = (1, 0, 0, 0)
         double3 xformOp:scale = (1, 1, 1)
         double3 xformOp:translate = (0, 0, 0)
