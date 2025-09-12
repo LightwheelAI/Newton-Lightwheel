@@ -18,7 +18,8 @@ The Newton version currently in use:
 [https://github.com/gdaviet/newton/tree/feat/mpm_multi_mat](https://github.com/gdaviet/newton/tree/feat/mpm_multi_mat)
 
 ### Houdini
-Houdini files are placed in the root directory of this repository:  
+Current Houdini Version to load the Hip file is 20.5.487 and 
+the Hip file are placed in the root directory of this repository:  
 - The **hda** folder contains the required Houdini Digital Assets.  
 - The **hip** files mainly process terrain, particles, and all Newton-related attributes and key values.  
 
