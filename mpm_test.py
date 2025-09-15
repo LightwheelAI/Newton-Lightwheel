@@ -27,7 +27,7 @@ import newton.utils
 from newton.solvers import SolverImplicitMPM
 from pathlib import Path
 from pxr import Usd, UsdGeom
-from import_usd_costume import parse_usd_particles, parse_usd_scene
+from import_usd_costume import parse_usd_particles, parse_usd_scene, transform_points, parse_world_matrix
 
 lab_to_mujoco = [9, 3, 6, 0, 10, 4, 7, 1, 11, 5, 8, 2]
 mujoco_to_lab = [3, 7, 11, 1, 5, 9, 2, 6, 10, 0, 4, 8]
@@ -169,7 +169,7 @@ class Example:
         # particle_offset = wp.vec3(0.5, 2, 0.5)
         world_offset = wp.vec3(0.0, 4.0, 0.35)
         # world_offset = wp.vec3(0.0, 0.0, 0.0)
-        particle_offset = wp.vec3(0.0, 0.0, 0.3)
+        particle_offset = wp.vec3(0.0, 0.0, 0.8)
         global_scale = 1.0
         # parse particles
         max_fraction = 1.0
@@ -290,43 +290,70 @@ class Example:
         collider_friction_array = []
         collider_adhesion_array = []
 
-        for i in scene :
-            current_object = scene[i]
-            current_points = wp.array(current_object["points"], dtype=wp.vec3)
-            current_indices = wp.array(current_object["faceVertexIndices"], dtype=int)
-            current_mesh = wp.Mesh(current_points, current_indices, wp.zeros_like(current_points))
-            collider_array.append(current_mesh)
-            collider_friction_array.append(0.5)
-            collider_adhesion_array.append(0.0e6)
+        # for i in scene :
+        #     current_object = scene[i]
+        #     current_points = wp.array(current_object["points"], dtype=wp.vec3)
+        #     current_indices = wp.array(current_object["faceVertexIndices"], dtype=int)
+        #     current_mesh = wp.Mesh(current_points, current_indices, wp.zeros_like(current_points))
+        #     collider_array.append(current_mesh)
+        #     collider_friction_array.append(0.5)
+        #     collider_adhesion_array.append(0.0e6)
 
-        collider_array.append(self.robot_collider_mesh)
+        # collider_array.append(self.robot_collider_mesh)
+        # collider_friction_array.append(0.5)
+        # collider_adhesion_array.append(0.0e6)
+        # setup collider with locomotion terrain collision mesh from houdini
+        # new_stage = Usd.Stage.Open(str((Path(__file__).parent / "scene.usda").resolve()))
+
+        prim = stage.GetPrimAtPath("/World/Locomotion_Terrain_collision_mesh/Mesh")
+        collision_mesh = UsdGeom.Mesh(prim)
+
+        collision_mesh_points = np.array(collision_mesh.GetPointsAttr().Get(), dtype=float)
+        world_mat = parse_world_matrix(prim)
+        world_points = transform_points(world_mat, collision_mesh_points, global_scale, world_offset)
+        collision_mesh_points = wp.array(world_points, dtype = wp.vec3)
+        collision_mesh_indices = wp.array(collision_mesh.GetFaceVertexIndicesAttr().Get(), dtype=int)
+        collision_wp_mesh = wp.Mesh(collision_mesh_points, collision_mesh_indices, wp.zeros_like(collision_mesh_points))
+
+        collider_array.append(collision_wp_mesh)
         collider_friction_array.append(0.5)
         collider_adhesion_array.append(0.0e6)
 
+
+
+
+        # mesh["pointsCount"] = len(mesh["points"])
+        # mesh["faceVertexCounts"] = np.array(usd_mesh.GetFaceVertexCountsAttr().Get(), dtype = int)
+        # mesh["faceVertexIndices"] = np.array(usd_mesh.GetFaceVertexIndicesAttr().Get(), dtype = int)
+        
+
+
         mpm_model.setup_collider(colliders=collider_array, collider_friction=collider_friction_array, collider_adhesion=collider_adhesion_array)
         
-        # def __output_collider_mesh_to_json(mesh: wp.Mesh, file_path: str) :
-        #     import json
-        #     pts = mesh._points
-        #     idx = mesh.indices
+        def __output_collider_mesh_to_json(mesh: wp.Mesh, file_path: str) :
+            import json
+            pts = mesh._points
+            idx = mesh.indices
 
-        #     pts = pts.list()
-        #     idx = idx.list()
+            pts = pts.list()
+            idx = idx.list()
 
-        #     data = {}
-        #     data["vertices"] = []
-        #     data["indices"] = []
-        #     for i in pts :
-        #         data["vertices"].append(i[0])
-        #         data["vertices"].append(i[1])
-        #         data["vertices"].append(i[2])
-        #     for i in idx :
-        #         data["indices"].append(int(i))
+            data = {}
+            data["vertices"] = []
+            data["indices"] = []
+            for i in pts :
+                data["vertices"].append(i[0])
+                data["vertices"].append(i[1])
+                data["vertices"].append(i[2])
+            for i in idx :
+                data["indices"].append(int(i))
 
-        #     with open(file_path, "w", encoding = "utf-8") as f :
-        #         json.dump(data, f, indent=4, ensure_ascii=False)
+            with open(file_path, "w", encoding = "utf-8") as f :
+                json.dump(data, f, indent=4, ensure_ascii=False)
 
-        # __output_collider_mesh_to_json(self.robot_collider_mesh, "C:/Users/legen/geo/collider_mesh.json")
+        __output_collider_mesh_to_json(collision_wp_mesh, "C:/Users/legen/geo/collider_mesh.json")
+        __output_collider_mesh_to_json(self.collider_mesh, "C:/Users/legen/geo/robot_collider_mesh.json")
+        # breakpoint()
 
 
         self.solver = newton.solvers.SolverMuJoCo(self.model)

@@ -7,8 +7,8 @@
                 double radius = 5
             }
             dictionary Perspective = {
-                double3 position = (0.3335423644643393, -13.487524181753134, 7.562115546103654)
-                double3 target = (0.1277575150175187, -0.7950995339006468, -0.5683265404757014)
+                double3 position = (7.386539196649188, -14.907288398252216, 7.291770682357877)
+                double3 target = (-1.0839648033481124, -0.037457169780015676, -1.832248700541407)
             }
             dictionary Right = {
                 double3 position = (0, -5, 0)
@@ -30,6 +30,8 @@
             dictionary "/World/Locomotion_Terrain" = {
             }
             dictionary "/World/Locomotion_Terrain_01" = {
+            }
+            dictionary "/World/Locomotion_Terrain_collision_mesh" = {
             }
             dictionary "/World/Middle_Rock_01" = {
             }
@@ -401,6 +403,18 @@ def Xform "World"
     def "Locomotion_Terrain" (
         delete references = @./Assets/Locomotion_Terrain.usd@
         prepend references = @./Assets/Locomotion_Terrain.usda@
+    )
+    {
+        quatf xformOp:orient = (1, 0, 0, 0)
+        double xformOp:rotateX:unitsResolve = 90
+        float3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale", "xformOp:rotateX:unitsResolve"]
+    }
+
+    def "Locomotion_Terrain_collision_mesh" (
+        active = true
+        prepend references = @./Assets/Locomotion_Terrain_collision_mesh.usda@
     )
     {
         quatf xformOp:orient = (1, 0, 0, 0)
