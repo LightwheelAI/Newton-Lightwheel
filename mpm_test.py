@@ -169,7 +169,7 @@ class Example:
         # particle_offset = wp.vec3(0.5, 2, 0.5)
         world_offset = wp.vec3(0.0, 4.0, 0.35)
         # world_offset = wp.vec3(0.0, 0.0, 0.0)
-        particle_offset = wp.vec3(0.0, 0.0, 0.8)
+        particle_offset = wp.vec3(0.0, 0.0, 0.42)
         global_scale = 1.0
         # parse particles
         max_fraction = 1.0
@@ -319,40 +319,41 @@ class Example:
         collider_friction_array.append(0.5)
         collider_adhesion_array.append(0.0e6)
 
+        collider_array.append(self.robot_collider_mesh)
+        collider_friction_array.append(0.5)
+        collider_adhesion_array.append(0.0e6)
 
 
-
-        # mesh["pointsCount"] = len(mesh["points"])
-        # mesh["faceVertexCounts"] = np.array(usd_mesh.GetFaceVertexCountsAttr().Get(), dtype = int)
-        # mesh["faceVertexIndices"] = np.array(usd_mesh.GetFaceVertexIndicesAttr().Get(), dtype = int)
+        mpm_model.setup_collider(
+            colliders=collider_array, 
+            collider_friction=collider_friction_array, 
+            collider_adhesion=collider_adhesion_array,
+            ground_height = -10.0
+        )
         
+        # def __output_collider_mesh_to_json(mesh: wp.Mesh, file_path: str) :
+        #     import json
+        #     pts = mesh._points
+        #     idx = mesh.indices
 
+        #     pts = pts.list()
+        #     idx = idx.list()
 
-        mpm_model.setup_collider(colliders=collider_array, collider_friction=collider_friction_array, collider_adhesion=collider_adhesion_array)
-        
-        def __output_collider_mesh_to_json(mesh: wp.Mesh, file_path: str) :
-            import json
-            pts = mesh._points
-            idx = mesh.indices
+        #     data = {}
+        #     data["vertices"] = []
+        #     data["indices"] = []
+        #     for i in pts :
+        #         data["vertices"].append(i[0])
+        #         data["vertices"].append(i[1])
+        #         data["vertices"].append(i[2])
+        #     for i in idx :
+        #         data["indices"].append(int(i))
 
-            pts = pts.list()
-            idx = idx.list()
+        #     with open(file_path, "w", encoding = "utf-8") as f :
+        #         json.dump(data, f, indent=4, ensure_ascii=False)
 
-            data = {}
-            data["vertices"] = []
-            data["indices"] = []
-            for i in pts :
-                data["vertices"].append(i[0])
-                data["vertices"].append(i[1])
-                data["vertices"].append(i[2])
-            for i in idx :
-                data["indices"].append(int(i))
-
-            with open(file_path, "w", encoding = "utf-8") as f :
-                json.dump(data, f, indent=4, ensure_ascii=False)
-
-        __output_collider_mesh_to_json(collision_wp_mesh, "C:/Users/legen/geo/collider_mesh.json")
-        __output_collider_mesh_to_json(self.collider_mesh, "C:/Users/legen/geo/robot_collider_mesh.json")
+        # __output_collider_mesh_to_json(collision_wp_mesh, "C:/Users/legen/geo/collider_mesh.json")
+        # __output_collider_mesh_to_json(self.collider_mesh, "C:/Users/legen/geo/robot_collider_mesh.json")
         # breakpoint()
 
 
@@ -366,6 +367,8 @@ class Example:
 
         self.mpm_solver.enrich_state(self.state_0)
         self.mpm_solver.enrich_state(self.state_1)
+
+        self.mpm_solver.project_outside(self.state_0, self.state_0, dt=0.0, max_dist=5.0)
 
         # not required for MuJoCo, but required for other solvers
         newton.eval_fk(self.model, self.state_0.joint_q, self.state_0.joint_qd, self.state_0)

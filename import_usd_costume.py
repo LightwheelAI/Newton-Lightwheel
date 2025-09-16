@@ -301,13 +301,24 @@ def parse_usd_scene(
             approximation = mesh_dict.get("mesh_approximation", False) 
             approximation_method = mesh_dict.get("mesh_approximation_method", "coacd")
             add_mesh_to_builder(builder, -1, mesh_obj, use_static_collider, shape_config, key, approximation, approximation_method, remesh_query)
-            
+
+    coacd_setting = {
+        "threshold": 0.018,
+        "mcts_nodes": 20,
+        "mcts_iterations": 10,
+        "mcts_max_depth": 2,
+        "merge": False,
+        # "max_convex_hull": mesh.maxhullvert,
+    }
     # approximate meshes
     for remeshing_method, shape_ids in remesh_query.items():
         if verbose:
             print(f"Approximating {len(shape_ids)} meshes with method '{remeshing_method}'")
-        builder.approximate_meshes(method=remeshing_method, shape_indices=shape_ids)
-
+        builder.approximate_meshes(
+            method=remeshing_method, 
+            shape_indices=shape_ids,
+            **coacd_setting
+        )
     if verbose:
         print("builder: {} shapes ".format(builder.shape_count))
     return scene
