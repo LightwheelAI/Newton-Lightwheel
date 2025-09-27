@@ -400,6 +400,7 @@ class Example:
         self.command[0, 0] = 1
 
         self._reset_key_prev = False
+        self._auto_forward = False
 
         # set model on viewer and setup capture
         self.viewer.set_model(self.model)
@@ -451,6 +452,20 @@ class Example:
 
     def step(self):
         # compute control before graph/step
+        if hasattr(self.viewer, "is_key_down"):
+            fwd = 1.0 if self.viewer.is_key_down("i") else (-1.0 if self.viewer.is_key_down("k") else 0.0)
+            lat = 0.5 if self.viewer.is_key_down("j") else (-0.5 if self.viewer.is_key_down("l") else 0.0)
+            rot = 1.0 if self.viewer.is_key_down("u") else (-1.0 if self.viewer.is_key_down("o") else 0.0)
+
+            if fwd or lat or rot:
+                # disable forward motion
+                self._auto_forward = False
+
+            self.command[0, 0] = float(fwd)
+            self.command[0, 1] = float(lat)
+            self.command[0, 2] = float(rot)
+        if self._auto_forward:
+            self.command[0, 0] = 1
         self.apply_control()
         if self.graph:
             wp.capture_launch(self.graph)
