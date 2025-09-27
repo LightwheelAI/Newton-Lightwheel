@@ -169,7 +169,7 @@ class Example:
         # particle_offset = wp.vec3(0.5, 2, 0.5)
         world_offset = wp.vec3(0.0, 4.0, 0.35)
         # world_offset = wp.vec3(0.0, 0.0, 0.0)
-        particle_offset = wp.vec3(0.0, 0.0, 0.42)
+        particle_offset = wp.vec3(0.0, 0.0, 0.65)
         global_scale = 1.0
         # parse particles
         max_fraction = 1.0
@@ -368,7 +368,7 @@ class Example:
         self.mpm_solver.enrich_state(self.state_0)
         self.mpm_solver.enrich_state(self.state_1)
 
-        self.mpm_solver.project_outside(self.state_0, self.state_0, dt=0.0, max_dist=5.0)
+        self.mpm_solver.project_outside(self.state_0, self.state_0, dt=0.0, max_dist=0.5)
 
         # not required for MuJoCo, but required for other solvers
         newton.eval_fk(self.model, self.state_0.joint_q, self.state_0.joint_qd, self.state_0)
