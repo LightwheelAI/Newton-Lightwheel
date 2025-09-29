@@ -15,7 +15,7 @@ All assets (textures, USDA files) are located in the **Assets** folder. For now,
 
 ### Newton
 The Newton version currently in use:  
-[https://github.com/gdaviet/newton/tree/feat/mpm_multi_mat](https://github.com/gdaviet/newton/tree/feat/mpm_multi_mat)
+[https://github.com/LightwheelAI/newton_corl](https://github.com/LightwheelAI/newton_corl)
 
 ### Houdini
 Current Houdini Version to load the Hip file is 20.5.487 and 
@@ -84,4 +84,5 @@ A Python file is also provided for loading the scene. It can be run in the corre
 - **Particle-to-Mesh Conversion**: Investigate converting mud or snow particles into mesh representations.  
 <!-- - **Additional Scene Elements**: Add details such as leaves, grass, or rocks to enhance realism.   -->
 <!-- - **Rendering Enhancements**: Experiment with techniques like subsurface scattering (SSS) in RTX for better visual fidelity.   -->
+
 
